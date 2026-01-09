@@ -3,7 +3,7 @@
 // @namespace   	https://github.com/Tomveloper/tldraw-enhanced
 // @match       	https://www.tldraw.com/*
 // @grant       	none
-// @version     	1.0
+// @version     	1.0.1
 // @author      	Tomveloper
 // @description 	adds button to invert an svg for dark (or light) mode usage
 // @homepageURL     https://github.com/Tomveloper/tldraw-enhanced
