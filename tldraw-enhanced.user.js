@@ -7,8 +7,8 @@
 // @author      	Tomveloper
 // @description 	adds button to invert an svg for dark (or light) mode usage
 // @homepageURL     https://github.com/Tomveloper/tldraw-enhanced
-// @updateURL       https://github.com/Tomveloper/tldraw-enhanced/raw/refs/heads/main/tldraw-enhanced.user.js
-// @downloadURL     https://github.com/Tomveloper/tldraw-enhanced/raw/refs/heads/main/tldraw-enhanced.user.js
+// @updateURL       https://raw.githubusercontent.com/Tomveloper/tldraw-enhanced/refs/heads/main/tldraw-enhanced.user.js
+// @downloadURL     https://raw.githubusercontent.com/Tomveloper/tldraw-enhanced/refs/heads/main/tldraw-enhanced.user.js
 // ==/UserScript==
 
 initSVGButton();
