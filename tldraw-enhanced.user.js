@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name        	svg invert button
+// @name        	tldraw enhanced
 // @namespace   	https://github.com/Tomveloper/tldraw-enhanced
 // @match       	https://www.tldraw.com/*
 // @grant       	none
 // @version     	1.0.2
 // @author      	Tomveloper
-// @description 	adds button to invert an svg for dark (or light) mode usage
+// @description 	currently only adds button to invert an svg for dark (or light) mode usage
 // @homepageURL     https://github.com/Tomveloper/tldraw-enhanced
 // @updateURL       https://raw.githubusercontent.com/Tomveloper/tldraw-enhanced/main/tldraw-enhanced.user.js
 // @downloadURL     https://raw.githubusercontent.com/Tomveloper/tldraw-enhanced/main/tldraw-enhanced.user.js
