@@ -15,7 +15,7 @@
 initSVGButton();
 
 function initSVGButton() {
-	document.body.innerHTML += `
+  document.body.innerHTML += `
 <div id="svg-invert" style="border-width:1px;border-style:solid;border-radius:8px;background:var(--element-color);position: fixed;right: 8px;bottom: 8px;padding: 4px;"><span style="font-size: 16px;width: 24px;height: 24px;display: block;"><svg style="filter:invert();" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="File-Svg">
@@ -69,11 +69,11 @@ function initSVGButton() {
     text-align:center;
   }
 
-  #copy-invert-btn[data-pasted]:hover {
+  #copy-invert-btn:hover {
     background:color-mix(in srgb, var(--element-color) 90%, #fff 10%);
   }
 
-  #copy-invert-btn[data-pasted]:active {
+  #copy-invert-btn:active {
     background:color-mix(in srgb, var(--element-color) 80%, #fff 20%);
   }
 
@@ -85,62 +85,73 @@ function initSVGButton() {
 </style>
 `;
 
-	const copyButton = document.querySelector("#copy-invert-btn");
-	const svgButton = document.querySelector("#svg-invert")
+  const copyButton = document.querySelector("#copy-invert-btn");
+  const svgButton = document.querySelector("#svg-invert")
 
-	const parser = new DOMParser();
+  const parser = new DOMParser();
 
-	let data;
-	let invertedSVG;
+  let data;
+  let invertedSVG;
 
-	svgButton.addEventListener("click", e => {
+  svgButton.addEventListener("click", e => {
 
-		copyButton.focus();
-		copyButton.innerText = "paste now";
+    copyButton.focus();
+    copyButton.innerText = "paste";
 
-		copyButton.removeAttribute("data-pasted");
-		copyButton.removeAttribute("data-copied");
-		data = null;
-		invertedSVG = null;
+    copyButton.removeAttribute("data-pasted");
+    copyButton.removeAttribute("data-copied");
+    data = null;
+    invertedSVG = null;
 
-	});
+  });
 
-	copyButton.addEventListener("paste", e => {
+  copyButton.addEventListener("paste", e => {
+    console.log(e);
 
-		if (copyButton !== document.activeElement || copyButton.hasAttribute("data-pasted")) return;
+    if (copyButton !== document.activeElement || copyButton.hasAttribute("data-pasted")) return;
 
-		e.preventDefault();
-		e.stopImmediatePropagation();
+    e.preventDefault();
+    e.stopImmediatePropagation();
 
-		if (copyButton.hasAttribute("data-pasted")) return;
+    if (copyButton.hasAttribute("data-pasted")) return;
 
-		copyButton.innerText = "copy";
-		copyButton.setAttribute("data-pasted", "");
+    pasted(e.clipboardData.getData("text/plain"));
 
-		data = e.clipboardData.getData("text/plain");
-		console.log(data);
 
-	}, true);
+  }, true);
 
-	copyButton.addEventListener("click", e => {
+  copyButton.addEventListener("click", async e => {
 
-		e.stopImmediatePropagation();
+    e.stopImmediatePropagation();
 
-		if (!copyButton.hasAttribute("data-pasted")) return;
-		copyButton.innerText = "copied";
-		copyButton.setAttribute("data-copied", "");
+    if (copyButton.hasAttribute("data-pasted")) {
+      copyButton.innerText = "copied";
+      copyButton.setAttribute("data-copied", "");
 
-		if (invertedSVG === null) {
+      if (invertedSVG === null) {
 
-			const dom = parser.parseFromString(data, "image/svg+xml");
-			const svgElement = dom.documentElement;
+        const dom = parser.parseFromString(data, "image/svg+xml");
+        const svgElement = dom.documentElement;
 
-			svgElement.style.filter = "invert()";
-			invertedSVG = svgElement.outerHTML;
-		}
+        svgElement.style.filter = "invert()";
+        invertedSVG = svgElement.outerHTML;
+      }
 
-		navigator.clipboard.writeText(invertedSVG);
+      navigator.clipboard.writeText(invertedSVG);
+    } else {
 
-	}, true);
+      pasted(await navigator.clipboard.readText());
+
+    }
+
+  }, true);
+
+  function pasted(text) {
+    copyButton.innerText = "copy";
+    copyButton.setAttribute("data-pasted", "");
+
+    data = text;
+    console.log(data);
+  }
 
 }
